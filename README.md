@@ -37,7 +37,7 @@ cluttered scenarios. PACE encompasses 54,945 frames with 257,673 annotations acr
 - [Dataset Download](#dataset-download)
 - [Dataset Format](#dataset-format)
 - [Dataset Visualization](#dataset-visualization)
-- [Annotation Tools](#annotation)
+- [Annotation Tools](#annotation-tools)
 <!-- - [Related Projects](#related-projects) -->
 <!-- - [Citation](#citation) -->
 
@@ -83,10 +83,10 @@ train_pbr|val|test
 We provide a visualization script to visualize the ground-truth pose annotations together wich their rendered 3D models. You can run `visualizer.ipynb` and get the following rgb/rendering/pose/mask visualizations:
 
 <p align='center'>
-<img align="left" src='images/rgb_000000.png' width='50%'> </img> <img align="center" src='images/render_000000.png' width='50%'> </img>
+<img align="left" src='images/rgb_000000.png' width='45%'> </img> <img align="center" src='images/render_000000.png' width='45%'> </img>
 </p>
 <p align='center'>
-<img align="left" src='images/pose_000000.png' width='50%'> </img> <img align="center" src='images/mask_000000.png' width='50%'> </img>
+<img align="left" src='images/pose_000000.png' width='45%'> </img> <img align="center" src='images/mask_000000.png' width='45%'> </img>
 </p>
 
 # Annotation Tools
@@ -107,11 +107,3 @@ annotation_tool
 - `pose_annotate` - The main program of pose annotation.
 - `postprocessing` - Code for various post processing steps, e.g., remove the markers, automatically refine the extrinsics, and manually align the extrinsics.
 - `TFT_vs_Fund` - Used in refining the extrinsics of the 3-cameras.
-<!-- # Related Projects
-- [KeypointNet: A Large-scale 3D Keypoint Dataset Aggregated from Numerous Human Annotations](https://github.com/qq456cvb/KeypointNet)
-- [TopNet: Structural Point Cloud Decoder](https://github.com/lynetcha/completion3d)
-- [The Perfect Match: 3D Point Cloud Matching with Smoothed Densities](https://github.com/zgojcic/3DSmoothNet) -->
-<!-- # Citation
-If you find our algorithm useful in your research, please consider citing:
-```
-``` -->
