@@ -13,7 +13,7 @@ PACE: Pose Annotations in Cluttered Environments
 <a href="https://qq456cvb.github.io">Yang You</a>, <a href="https://xiongkai.netlify.app/">Kai Xiong</a>, Zhening Yang, <a href="https://github.com/huangzhengxiang">Zhengxiang Huang</a>, <a href="https://github.com/Zhou-jw">Junwei Zhou</a>, <a href="https://rshi.top/">Ruoxi Shi</a>, Zhou Fang, <a href="https://adamharley.com/">Adam W Harley</a>, <a href="https://www.mvig.org/">Cewu Lu</a>
 <br>
 <br>
-<a href='https://qq456cvb.github.io/files/pace.pdf'>
+<a href='https://arxiv.org/pdf/2312.15130.pdf'>
   <img src='https://img.shields.io/badge/Paper-PDF-orange?style=flat&logo=arxiv&logoColor=orange' alt='Paper PDF'>
 </a>
 <a href='https://qq456cvb.github.io/projects/pace'>
