@@ -38,8 +38,7 @@ cluttered scenarios. PACE encompasses 54,945 frames with 257,673 annotations acr
 - [Dataset Format](#dataset-format)
 - [Dataset Visualization](#dataset-visualization)
 - [Annotation Tools](#annotation-tools)
-<!-- - [Related Projects](#related-projects) -->
-<!-- - [Citation](#citation) -->
+- [Citation](#citation)
 
 # Dataset Download
 Our dataset can be downloaded on [OneDrive](https://sjtueducn-my.sharepoint.com/:f:/g/personal/qq456cvb_sjtu_edu_cn/Ei3YV1Iz5U1Ai2fkgD7wMO0BlnAjzgRSahLu3YwD8W-dZQ) or [BaiduPan](https://pan.baidu.com/s/1EJ5deSOJWk4vqQMc81bLeg?pwd=mf7d).
@@ -107,3 +106,15 @@ annotation_tool
 - `pose_annotate` - The main program of pose annotation.
 - `postprocessing` - Code for various post processing steps, e.g., remove the markers, automatically refine the extrinsics, and manually align the extrinsics.
 - `TFT_vs_Fund` - Used in refining the extrinsics of the 3-cameras.
+
+# Citation
+```
+@misc{you2023pace,
+    title={PACE: Pose Annotations in Cluttered Environments},
+    author={Yang You and Kai Xiong and Zhening Yang and Zhengxiang Huang and Junwei Zhou and Ruoxi Shi and Zhou Fang and Adam W. Harley and Cewu Lu},
+    year={2023},
+    eprint={2312.15130},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+```
