@@ -70,7 +70,7 @@ train_pbr|val|test
 - `scene_camera.json` - Camera parameters.
 - `scene_gt.json` - Ground-truth annotations. See [BOP format](https://github.com/thodan/bop_toolkit/blob/master/docs/bop_datasets_format.md#ground-truth-annotations) for details.
 - `scene_gt_info.json` - Meta information about ground-truth poses. See [BOP format](https://github.com/thodan/bop_toolkit/blob/master/docs/bop_datasets_format.md#meta-information-about-the-ground-truth-poses) for details.
-- `scene_gt_coco_det_modal[_partcat|_inst].json` - 2D bounding box and instance segmentation labels in COCO format. `scene_gt_coco_det_modal_partcat.json` treats individual parts of articulated objects as different categories, which is useful when evaluating articulate-agnostic category-level pose estimation methods. `scene_gt_coco_det_modal_inst.json` treats each object **instance** as a separate category, which is useful when evaluating instance-level pose estimation methods. **Notice**: there are slightly more categories than those reported in the paper since some objects obly appear in the synthetic dataset but not the real one.
+- `scene_gt_coco_det_modal[_partcat|_inst].json` - 2D bounding box and instance segmentation labels in COCO format. `scene_gt_coco_det_modal_partcat.json` treats individual parts of articulated objects as different categories, which is useful when evaluating articulate-agnostic category-level pose estimation methods. `scene_gt_coco_det_modal_inst.json` treats each object **instance** as a separate category, which is useful when evaluating instance-level pose estimation methods. **Notice**: there are slightly more categories than those reported in the paper since some objects only appear in the synthetic dataset but not in the real one.
 - `rgb` - Color images.
 - `rgb_nocs` - Normalized coordinates of objects encoded as RGB colors (mapped from `[-1, 1]` to `[0, 1]`).
 - `depth` - Depth images (saved as 16-bit unsigned short). To convert depth into actual meters, divide by 10000 for `train_pbr` and 1000 for `val|test`.
@@ -106,6 +106,8 @@ annotation_tool
 - `pose_annotate` - The main program of pose annotation.
 - `postprocessing` - Code for various post processing steps, e.g., remove the markers, automatically refine the extrinsics, and manually align the extrinsics.
 - `TFT_vs_Fund` - Used in refining the extrinsics of the 3-cameras.
+
+More detailed documentation for the annotation software is coming soon.
 
 # Citation
 ```
