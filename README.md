@@ -1,7 +1,7 @@
 
 
  <h1 align="center">
-PACE: Pose Annotations in Cluttered Environments
+PACE: Pose Annotations in Cluttered Environments (ECCV 2024)
 </h1>
 
 <p align='center'>
@@ -41,7 +41,7 @@ cluttered scenarios. PACE encompasses 54,945 frames with 257,673 annotations acr
 - [Citation](#citation)
 
 # Dataset Download
-Our dataset can be downloaded on [OneDrive](https://sjtueducn-my.sharepoint.com/:f:/g/personal/qq456cvb_sjtu_edu_cn/Ei3YV1Iz5U1Ai2fkgD7wMO0BlnAjzgRSahLu3YwD8W-dZQ) or [BaiduPan](https://pan.baidu.com/s/1EJ5deSOJWk4vqQMc81bLeg?pwd=mf7d). The `train_pbr` is for instance-level pose estimation task. For category-level pose estimation task, there are a separate set of instances within each category, which will be released soon.
+Our dataset can be downloaded on [OneDrive](https://sjtueducn-my.sharepoint.com/:f:/g/personal/qq456cvb_sjtu_edu_cn/Ei3YV1Iz5U1Ai2fkgD7wMO0BlnAjzgRSahLu3YwD8W-dZQ) or [BaiduPan](https://pan.baidu.com/s/1EJ5deSOJWk4vqQMc81bLeg?pwd=mf7d). The `train_pbr` is for instance-level pose estimation task. For category-level pose estimation task, there are a separate set of instances within each category, which will be released soon. We are aware that OneDrive link is expired, and an updated version will be uploaded to huggingface. Stay tuned, it will be released in mid July.
   
 # Dataset Format
 Our dataset mainly follows [BOP format](https://github.com/thodan/bop_toolkit/blob/master/docs/bop_datasets_format.md) with the following structure:
