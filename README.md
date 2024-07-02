@@ -1,7 +1,8 @@
 
 
  <h1 align="center">
-PACE: Pose Annotations in Cluttered Environments (ECCV 2024)
+PACE: Pose Annotations in Cluttered Environments <br>
+  (ECCV 2024)
 </h1>
 
 <p align='center'>
@@ -113,7 +114,7 @@ More detailed documentation for the annotation software is coming soon.
 ```
 @misc{you2023pace,
     title={PACE: Pose Annotations in Cluttered Environments},
-    author={Yang You and Kai Xiong and Zhening Yang and Zhengxiang Huang and Junwei Zhou and Ruoxi Shi and Zhou Fang and Adam W. Harley and Cewu Lu},
+    author={Yang You and Kai Xiong and Zhening Yang and Zhengxiang Huang and Junwei Zhou and Ruoxi Shi and Zhou Fang and Adam W. Harley and Leonidas Guibas and Cewu Lu},
     year={2023},
     eprint={2312.15130},
     archivePrefix={arXiv},
