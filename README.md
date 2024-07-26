@@ -33,8 +33,8 @@ We introduce **PACE** (Pose Annotations in Cluttered Environments), a large-scal
 - Our objective is to rigorously assess the generalization capabilities of current state-of-the-art methods in a broad and challenging real-world environment. This will enable us to explore and quantify the 'simulation-to-reality' gap, providing deeper insights into the effectiveness of these methods in practical applications.
 
 # Update Logs
-[2024/07/22] PACE dataset v1.1 uploaded to [HuggingFace](https://huggingface.co/datasets/qq456cvb/PACE/tree/main). Benchmark evaluation code released.
-[2024/03/01] PACE v1.0 released.
+- [2024/07/22] PACE dataset v1.1 uploaded to [HuggingFace](https://huggingface.co/datasets/qq456cvb/PACE/tree/main). Benchmark evaluation code released.
+- [2024/03/01] PACE v1.0 released.
 
 # Contents
 - [Dataset Download](#dataset-download)
