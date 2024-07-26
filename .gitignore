@@ -1,0 +1,16 @@
+prediction
+
+!prediction/category/.gitkeep
+!prediction/instance/.gitkeep
+
+eval/instance/eval_output
+eval/category/tmp
+eval/category/catpose_gts_test.pkl
+model_splits
+dataset
+!dataset/pace/.gitkeep
+
+**/run_py.sh
+**/__pycache__/
+**/*.pyc
+**/slurm_output
