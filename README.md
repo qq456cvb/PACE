@@ -6,7 +6,7 @@ PACE: Pose Annotations in Cluttered Environments <br>
 </h1>
 
 <p align='center'>
-<img align="center" src='images/teaser.jpg' width='70%'> </img>
+<img align="center" src='images/teaser.jpg' width='100%'> </img>
 </p>
 
 <div align="center">
