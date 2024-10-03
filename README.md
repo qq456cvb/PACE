@@ -32,6 +32,9 @@ We introduce **PACE** (Pose Annotations in Cluttered Environments), a large-scal
 # Why a new dataset?
 - Our objective is to rigorously assess the generalization capabilities of current state-of-the-art methods in a broad and challenging real-world environment. This will enable us to explore and quantify the 'simulation-to-reality' gap, providing deeper insights into the effectiveness of these methods in practical applications.
 
+# News
+- You may want to try our most advanced pose estimator **[CPPF++](https://github.com/qq456cvb/CPPF2)** (*TPAMI*) that achieves the best performance on PACE.
+
 # Update Logs
 - [2024/07/22] PACE dataset v1.1 uploaded to [HuggingFace](https://huggingface.co/datasets/qq456cvb/PACE/tree/main). Benchmark evaluation code released.
 - [2024/03/01] PACE v1.0 released.
