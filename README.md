@@ -17,6 +17,9 @@ PACE: Pose Annotations in Cluttered Environments <br>
 <a href='https://arxiv.org/pdf/2312.15130.pdf'>
   <img src='https://img.shields.io/badge/Paper-PDF-orange?style=flat&logo=arxiv&logoColor=orange' alt='Paper PDF'>
 </a>
+<a href='https://qq456cvb.github.io/files/pace_supp.pdf'>
+  <img src='https://img.shields.io/badge/Supp-PDF-blue?style=flat&logo=arxiv&logoColor=green' alt='Supplementary'>
+</a>
 <a href='https://qq456cvb.github.io/projects/pace'>
   <img src='https://img.shields.io/badge/Project-Page-green?style=flat&logo=googlechrome&logoColor=green' alt='Project Page'>
 </a>
