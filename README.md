@@ -31,6 +31,10 @@ PACE: Pose Annotations in Cluttered Environments <br>
 </div>
  
 We introduce **PACE** (Pose Annotations in Cluttered Environments), a large-scale benchmark designed to advance the development and evaluation of pose estimation methods in cluttered scenarios. PACE provides a large-scale real-world benchmark for both instance-level and category-level settings. The benchmark consists of 55K frames with 258K annotations across 300 videos, covering 238 objects from 43 categories and featuring a mix of rigid and articulated items in cluttered scenes. To annotate the real-world data efficiently, we develop an innovative annotation system with a calibrated 3-camera setup. Additionally, we offer **PACESim**, which contains 100K photo-realistic simulated frames with 2.4M annotations across 931 objects. We test state-of-the-art algorithms in PACE along two tracks: pose estimation, and object pose tracking, revealing the benchmark’s challenges and research opportunities.
+<p align="center">
+  <img src="images/video.gif?raw=true" style="width:30%;" />
+</p>
+
 
 # Why a new dataset?
 - Our objective is to rigorously assess the generalization capabilities of current state-of-the-art methods in a broad and challenging real-world environment. This will enable us to explore and quantify the 'simulation-to-reality' gap, providing deeper insights into the effectiveness of these methods in practical applications.
