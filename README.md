@@ -65,7 +65,7 @@ We evaluate state-of-the-art algorithms on PACE for both pose estimation and obj
 ---
 
 ## Dataset Download
-Download the dataset from [HuggingFace](https://huggingface.co/datasets/qq456cvb/PACE/tree/main). Unzip all `tar.gz` files and place them under `dataset/pace` for evaluation. Large files are split into chunks; merge them with, e.g., `cat test_chunk_* > test.tar.gz`.
+Download the dataset from [HuggingFace](https://huggingface.co/datasets/qq456cvb/PACE/tree/main). Unzip all `tar.gz` files and place them under `dataset/pace` for evaluation. Large files are split into chunks; merge them with, e.g., `cat test_chunk_* > test.tar.gz`. We also provide a convenient download script at download_pace.ipynb.
 
 ---
 
