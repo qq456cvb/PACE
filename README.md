@@ -43,6 +43,17 @@ We evaluate state-of-the-art algorithms on PACE for both pose estimation and obj
 
 ---
 
+<!-- README refined by Cursor -->
+
+## Data and Artifact Mirrors
+
+No verified Hugging Face mirror is available yet for the artifacts below; use the original sources until a complete mirror is uploaded.
+
+Original, external, or pending sources:
+- Instance baseline predictions: [https://drive.google.com/drive/folders/1_MfVn815u0oWzGG4H9bcRIy42rVLzOr0?usp=sharing](https://drive.google.com/drive/folders/1_MfVn815u0oWzGG4H9bcRIy42rVLzOr0?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
+- Category baseline predictions: [https://drive.google.com/drive/folders/1_Z22KjGJ55yimboSuN2nVp6M0_Yz1-Dr?usp=sharing](https://drive.google.com/drive/folders/1_Z22KjGJ55yimboSuN2nVp6M0_Yz1-Dr?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
+- Category ground-truth labels: [https://drive.google.com/file/d/1a_Ld_8COxQAXL2dJI4L2qvrwbpX6qsa2/view?usp=sharing](https://drive.google.com/file/d/1a_Ld_8COxQAXL2dJI4L2qvrwbpX6qsa2/view?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
+
 ## Why a New Dataset?
 - PACE rigorously tests the generalization of state-of-the-art methods in complex, real-world environments, enabling exploration and quantification of the 'simulation-to-reality' gap for practical applications.
 
@@ -213,4 +224,4 @@ annotation_tool/
     year={2024},
     organization={Springer}
 }
-``` 
+```
