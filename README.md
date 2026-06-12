@@ -8,8 +8,8 @@
   <h3>
     <a href="https://qq456cvb.github.io">Yang You</a>, <a href="https://xiongkai.netlify.app/">Kai Xiong</a>, Zhening Yang, <a href="https://github.com/huangzhengxiang">Zhengxiang Huang</a>, <a href="https://github.com/Zhou-jw">Junwei Zhou</a>, <a href="https://rshi.top/">Ruoxi Shi</a>, Zhou Fang, <a href="https://adamharley.com/">Adam W Harley</a>, <a href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a>, <a href="https://www.mvig.org/">Cewu Lu</a>
     <br><br>
-    <a href="https://arxiv.org/pdf/2312.15130.pdf">
-      <img src="https://img.shields.io/badge/Paper-PDF-orange?style=flat&logo=arxiv&logoColor=orange" alt="Paper PDF">
+    <a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/06837.pdf">
+      <img src="https://img.shields.io/badge/Paper-ECCV%202024-orange?style=flat" alt="Paper PDF">
     </a>
     <a href="https://qq456cvb.github.io/files/pace_supp.pdf">
       <img src="https://img.shields.io/badge/Supp-PDF-blue?style=flat&logo=arxiv&logoColor=green" alt="Supplementary">
@@ -42,17 +42,6 @@ We evaluate state-of-the-art algorithms on PACE for both pose estimation and obj
 </p>
 
 ---
-
-<!-- README refined by Cursor -->
-
-## Data and Artifact Mirrors
-
-No verified Hugging Face mirror is available yet for the artifacts below; use the original sources until a complete mirror is uploaded.
-
-Original, external, or pending sources:
-- Instance baseline predictions: [https://drive.google.com/drive/folders/1_MfVn815u0oWzGG4H9bcRIy42rVLzOr0?usp=sharing](https://drive.google.com/drive/folders/1_MfVn815u0oWzGG4H9bcRIy42rVLzOr0?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
-- Category baseline predictions: [https://drive.google.com/drive/folders/1_Z22KjGJ55yimboSuN2nVp6M0_Yz1-Dr?usp=sharing](https://drive.google.com/drive/folders/1_Z22KjGJ55yimboSuN2nVp6M0_Yz1-Dr?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
-- Category ground-truth labels: [https://drive.google.com/file/d/1a_Ld_8COxQAXL2dJI4L2qvrwbpX6qsa2/view?usp=sharing](https://drive.google.com/file/d/1a_Ld_8COxQAXL2dJI4L2qvrwbpX6qsa2/view?usp=sharing). Hugging Face mirror is pending because the source did not expose a retrievable public file URL during this cleanup.
 
 ## Why a New Dataset?
 - PACE rigorously tests the generalization of state-of-the-art methods in complex, real-world environments, enabling exploration and quantification of the 'simulation-to-reality' gap for practical applications.
@@ -161,7 +150,7 @@ Unzip all `tar.gz` files from [HuggingFace](https://huggingface.co/datasets/qq45
 
 ### Instance-Level Pose Estimation
 - Ensure the `bop_toolkit` submodule is cloned: after `git clone`, run `git submodule update --init`, or use `git clone --recurse-submodules git@github.com:qq456cvb/PACE.git`.
-- Place prediction results at `prediction/instance/${METHOD_NAME}_pace-test.csv` (baseline results available [here](https://drive.google.com/drive/folders/1_MfVn815u0oWzGG4H9bcRIy42rVLzOr0?usp=sharing)).
+- Place prediction results at `prediction/instance/${METHOD_NAME}_pace-test.csv` (baseline results for CosyPose, GDRNPP, PPF and SurfEmb available on [Hugging Face](https://huggingface.co/datasets/qq456cvb/PACE/tree/main/baseline_results/instance)).
 - Run:
   ```sh
   cd eval/instance
@@ -169,8 +158,8 @@ Unzip all `tar.gz` files from [HuggingFace](https://huggingface.co/datasets/qq45
   ```
 
 ### Category-Level Pose Estimation
-- Place prediction results at `prediction/category/${METHOD_NAME}_pred.pkl` (baseline results available [here](https://drive.google.com/drive/folders/1_Z22KjGJ55yimboSuN2nVp6M0_Yz1-Dr?usp=sharing)).
-- Download ground-truth labels in compatible `pkl` format from [here](https://drive.google.com/file/d/1a_Ld_8COxQAXL2dJI4L2qvrwbpX6qsa2/view?usp=sharing) and place at `eval/category/catpose_gts_test.pkl`.
+- Place prediction results at `prediction/category/${METHOD_NAME}_pred.pkl` (baseline results for ANCSH, CPPF++, HS-Pose, NOCS, SAR-Net and SGPA available on [Hugging Face](https://huggingface.co/datasets/qq456cvb/PACE/tree/main/baseline_results/category)).
+- Download ground-truth labels in compatible `pkl` format from [Hugging Face](https://huggingface.co/datasets/qq456cvb/PACE/resolve/main/baseline_results/catpose_gts_test.pkl) and place at `eval/category/catpose_gts_test.pkl`.
 - Run:
   ```sh
   cd eval/category
@@ -217,10 +206,10 @@ annotation_tool/
 
 ## Citation
 ```bibtex
-@misc{you2023pace,
-    title={PACE: Pose Annotations in Cluttered Environments},
+@inproceedings{you2024pace,
+    title={PACE: A Large-Scale Dataset with Pose Annotations in Cluttered Environments},
     author={You, Yang and Xiong, Kai and Yang, Zhening and Huang, Zhengxiang and Zhou, Junwei and Shi, Ruoxi and Fang, Zhou and Harley, Adam W. and Guibas, Leonidas and Lu, Cewu},
-    booktitle={European Conference on Computer Vision},
+    booktitle={European Conference on Computer Vision (ECCV)},
     year={2024},
     organization={Springer}
 }
