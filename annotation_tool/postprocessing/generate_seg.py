@@ -8,7 +8,12 @@ from tqdm import tqdm
 
 
 if __name__ == '__main__':
-    root = Path('data/videos/scene_4/video_0')
+    import argparse
+    parser = argparse.ArgumentParser(description='Render instance masks for all cameras from saved pose annotations.')
+    parser.add_argument('root', help='video folder, e.g. data/videos/scene_0/video_0')
+    args = parser.parse_args()
+
+    root = Path(args.root)
     intrinsics = np.load(root / 'intrinsics.npy')
     extrinsics = np.load(root / 'extrinsics_refined.npy')
     anno_scene = AnnoScene()

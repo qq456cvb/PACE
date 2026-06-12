@@ -31,9 +31,13 @@ def render(glctx, proj, pos, pos_idx, uv, uv_idx, tex):
     return color
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Visualize RGB-D alignment as a fused depth heatmap.')
+    parser.add_argument('root', help='video folder, e.g. data/videos/scene_0/video_0')
+    args = parser.parse_args()
     
     colormap = plt.get_cmap('jet')
-    root = 'data/scenes/scene_0/video_0'
+    root = args.root
     intrinsics = np.load(Path(root) / 'intrinsics.npy')
     extrinsics = np.load(Path(root) / 'extrinsics.npy')
     

@@ -28,7 +28,10 @@ import pyrealsense2 as rs
 from utils.config import Config
 from utils.miscellaneous import avg_poses
 
-save_root="./data/videos/"
+# Defaults; overridden by CLI arguments in __main__.
+save_root = "./data/videos/"
+calib_dir = "data"
+cam_serials = ['038522062547', '039422060546', '104122063678']
 
 def detect(intrinsic, img, marker_length = 150):
     dist_coeffs = np.array([0, 0, 0, 0], dtype=np.float32)
@@ -73,7 +76,7 @@ class VideoThread(QThread):
         super().__init__()
         self._run_flag = True
         self.reset()
-        self.cameras = [Camera4multi(cid, H=Config.FRAME_HEIGHT, W=Config.FRAME_WIDTH) for cid in ['038522062547', '039422060546', '104122063678']]
+        self.cameras = [Camera4multi(cid, H=Config.FRAME_HEIGHT, W=Config.FRAME_WIDTH) for cid in cam_serials]
 
     def reset(self):
         self.recorded_imgs = []
@@ -196,11 +199,11 @@ class Window(QMainWindow):
         #     [  0.,           0.,           1.        ]]
         # )
         self.scale = 0.25
-        self.intrinsics = np.load('data/intrinsics.npy')
+        self.intrinsics = np.load(os.path.join(calib_dir, 'intrinsics.npy'))
         for i in range(len(self.intrinsics)):
             self.intrinsics[i][:2, :3] *= self.scale
         
-        self.extrinsics = np.load('data/extrinsics.npy')
+        self.extrinsics = np.load(os.path.join(calib_dir, 'extrinsics.npy'))
         self.curr_idx = 0
         self.t = 0
         
@@ -618,6 +621,18 @@ class Window(QMainWindow):
 
         
 if __name__ == '__main__' :
+    import argparse
+    parser = argparse.ArgumentParser(description='RGB-D capture GUI with live ArUco marker inpainting preview.')
+    parser.add_argument('--save-root', default=save_root, help='directory where recorded video_N folders are created')
+    parser.add_argument('--calib-dir', default=calib_dir, help='directory containing intrinsics.npy and extrinsics.npy from utils/calc_extrin.py')
+    parser.add_argument('--serials', nargs=3, default=cam_serials, metavar=('CAM0', 'CAM1', 'CAM2'),
+                        help='RealSense serial numbers of the three cameras')
+    args = parser.parse_args()
+    save_root = args.save_root if args.save_root.endswith('/') else args.save_root + '/'
+    calib_dir = args.calib_dir
+    cam_serials = args.serials
+    os.makedirs(save_root, exist_ok=True)
+
     app = QApplication([])
     app.setStyleSheet("QLabel{font-size: 14pt;}")
     widget = Window()

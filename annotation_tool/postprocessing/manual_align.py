@@ -23,7 +23,7 @@ def downsample(pc, res):
     return np.array(res)
 
 
-def align_3d(root):
+def align_3d(root, cam_id=2, img_id=120):
     vis = o3d.visualization.VisualizerWithKeyCallback()
     vis.create_window(
         window_name='Segmented Scene',
@@ -37,10 +37,8 @@ def align_3d(root):
     intrinsics = np.load(Path(root) / 'intrinsics.npy')
     extrinsics = np.load(Path(root) / 'extrinsics_refined.npy')
     
-    anno_ids = [2]
+    anno_ids = [cam_id]
     
-    # for img_id in tqdm(range(0, len(list((Path(root) / 'cam0/rgb').glob('*.png'))), 10)):
-    img_id= 120
     scene_pcs = {}
     for i in [0] + anno_ids:
         img_data = cv2.imread(os.path.join(root, 'cam{}/rgb_marker/rgb{:04d}.png'.format(i, img_id)))[..., :3][:, :, ::-1]
@@ -232,6 +230,12 @@ def align_2d(root):
         cv2.imshow('img', img[..., ::-1])
 
 if __name__ == '__main__':
-    for root in list(sorted(Path('data/videos/scene_7').glob('video_6'))):
-        align_3d(root)
+    import argparse
+    parser = argparse.ArgumentParser(description='Manually align one camera to cam0 by nudging its extrinsics over fused point clouds.')
+    parser.add_argument('root', help='video folder, e.g. data/videos/scene_0/video_0')
+    parser.add_argument('--cam', type=int, default=2, help='camera id to align against cam0 (1 or 2)')
+    parser.add_argument('--frame', type=int, default=0, help='frame index used for visualization')
+    args = parser.parse_args()
+
+    align_3d(Path(args.root), cam_id=args.cam, img_id=args.frame)
     

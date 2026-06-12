@@ -97,9 +97,17 @@ def get_extrinsic(intrinsic, img, marker_length=150):     # 临测for采集视�
 
             
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Calibrate the 3-camera rig from ArUco marker observations.')
+    parser.add_argument('--serials', nargs=3, default=['038522062547', '039422060546', '104122063678'],
+                        metavar=('CAM0', 'CAM1', 'CAM2'), help='RealSense serial numbers of the three cameras')
+    parser.add_argument('--out-dir', default='data', help='output directory for intrinsics.npy and extrinsics.npy')
+    args = parser.parse_args()
+    os.makedirs(args.out_dir, exist_ok=True)
+
     pipelines = []
     intrinsics = []
-    for i, sn in enumerate(['038522062547', '039422060546', '104122063678']):
+    for i, sn in enumerate(args.serials):
         pipeline = rs.pipeline()
         config = rs.config()
         config.enable_device(sn)
@@ -118,7 +126,7 @@ if __name__ == '__main__':
         intrinsics.append(camIntrinsics)
 
     # intrinsic save
-    np.save('data/intrinsics.npy', np.stack(intrinsics))
+    np.save(os.path.join(args.out_dir, 'intrinsics.npy'), np.stack(intrinsics))
 
     start = False
     obj_pts = [[] for _ in range(3)]
@@ -216,7 +224,7 @@ if __name__ == '__main__':
         ex[:3, -1] = T[:, 0]
         rel_exs.append(ex)
     
-    np.save('data/extrinsics.npy', np.stack(
+    np.save(os.path.join(args.out_dir, 'extrinsics.npy'), np.stack(
         [np.eye(4), rel_exs[0], rel_exs[1]]
     ))
     exit()

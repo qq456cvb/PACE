@@ -101,10 +101,10 @@ Articulated objects are directories containing a `.urdf` plus one mesh per link.
 ## Step 1 — Camera Calibration
 
 ```sh
-python utils/calc_extrin.py
+python utils/calc_extrin.py --serials <CAM0_SN> <CAM1_SN> <CAM2_SN> [--out-dir data]
 ```
 
-Opens all three RealSense streams and detects the ArUco marker. Press `S` to start collecting marker observations, and `S` again to stop. The script averages the per-frame marker poses and writes:
+Opens all three RealSense streams (identified by their serial numbers) and detects the ArUco marker. Press `S` to start collecting marker observations, and `S` again to stop. The script averages the per-frame marker poses and writes:
 
 - `data/intrinsics.npy` — per-camera intrinsics
 - `data/extrinsics.npy` — per-camera extrinsics in the marker (board) coordinate frame
@@ -114,7 +114,7 @@ These two files are picked up by the capture tool and copied into every recorded
 ## Step 2 — Video Capture
 
 ```sh
-python inpainting/inpaint.py
+python inpainting/inpaint.py --serials <CAM0_SN> <CAM1_SN> <CAM2_SN> [--save-root ./data/videos/] [--calib-dir data]
 ```
 
 A capture GUI for recording annotation videos. Despite living in `inpainting/`, this is the main recording tool — it also previews live marker inpainting so you can check the auxiliary clips are good. Before recording a scene, capture two short reference clips:
@@ -133,28 +133,28 @@ Then record the actual sequence with objects on the board.
 | OK | `A` | accept the current recording |
 | Cancel | `S` | discard the current recording |
 
-Each accepted recording is saved as a new `data/videos/video_N/` folder containing `cam{0,1,2}/rgb`, `cam{0,1,2}/depth`, `aux1/`, and copies of `intrinsics.npy` / `extrinsics.npy`. The RealSense serial numbers at the top of `inpaint.py` must be edited to match your devices.
+Each accepted recording is saved as a new `video_N/` folder under `--save-root` containing `cam{0,1,2}/rgb`, `cam{0,1,2}/depth`, `aux1/`, and copies of `intrinsics.npy` / `extrinsics.npy` (read from `--calib-dir`).
 
 ## Step 3 — Extrinsic Refinement
 
-Marker-based extrinsics are a good initialization but not pixel-perfect. Three refinement options are available (edit the `root = Path('data/videos/...')` glob at the bottom of each script to select your scene):
+Marker-based extrinsics are a good initialization but not pixel-perfect. Three refinement options are available (each takes the video folder as argument):
 
-- **Automatic** — `python postprocessing/refine_extrinsic.py`
-  Extracts SuperPoint/SuperGlue correspondences across the three views, estimates relative poses with the trifocal-tensor toolbox (`TFT_vs_Fund`, via the MATLAB engine), and runs bundle adjustment. Writes `extrinsics_refined.npy`.
+- **Automatic** — `python postprocessing/refine_extrinsic.py data/videos/scene_X/video_Y [--stride 10]`
+  Extracts SuperPoint/SuperGlue correspondences across the three views (every `--stride`-th frame), estimates relative poses with the trifocal-tensor toolbox (`TFT_vs_Fund`, via the MATLAB engine), and runs bundle adjustment. Writes `extrinsics_refined.npy`.
 
-- **Semi-automatic** — `python postprocessing/refine_extrinsic_manual.py`
+- **Semi-automatic** — `python postprocessing/refine_extrinsic_manual.py data/videos/scene_X/video_Y`
   Same optimization, but lets you inspect and edit the correspondences in OpenCV windows first: left-click to add a point, right-click near a point to delete it across views, `Q` to finish editing.
 
-- **Manual point-cloud alignment** — `python postprocessing/manual_align.py`
-  Visualizes the fused point clouds from all cameras and lets you nudge a camera's extrinsics with the same translation/rotation keys as the pose annotation tool (see below). Press `Esc` to save and exit.
+- **Manual point-cloud alignment** — `python postprocessing/manual_align.py data/videos/scene_X/video_Y [--cam 2] [--frame 0]`
+  Visualizes the fused point clouds of `cam0` and camera `--cam` at frame `--frame`, and lets you nudge that camera's extrinsics with the same translation/rotation keys as the pose annotation tool (see below). Press `Esc` to save and exit.
 
 ## Step 4 — Marker Removal
 
 ```sh
-python postprocessing/remove_marker.py
+python postprocessing/remove_marker.py data/videos/scene_X/video_Y
 ```
 
-Inpaints the ArUco marker region in every frame using the background and relative-pose reference clips (`aux1/`), warping the clean background via homography and blending with seamless cloning. This produces the `rgb_marker/` frames consumed by the pose annotation GUI, so the marker does not leak into the dataset imagery. Edit the hardcoded `root` path to point at your scene.
+Inpaints the ArUco marker region in every frame using the background and relative-pose reference clips (`aux1/`), warping the clean background via homography and blending with seamless cloning. This produces the `rgb_marker/` frames consumed by the pose annotation GUI, so the marker does not leak into the dataset imagery.
 
 ## Step 5 — Object Model Preparation
 
@@ -229,10 +229,10 @@ Masks rendered from poses can be touched up manually: mouse wheel changes the br
 
 ## Step 7 — Mask Generation and Inspection
 
-- `python postprocessing/generate_seg.py` — batch-renders instance masks for all three cameras from the saved pose JSONs (edit the `root` path; output goes to `cam{0,1,2}/mask/`).
-- `python postprocessing/view_pose.py` — quick sanity check that re-projects an annotated object's vertices into all three views.
-- `python postprocessing/calibrate_depth.py` — visualizes depth/RGB alignment as a fused heatmap.
-- `python postprocessing/mesh2eval.py` — simplifies released meshes into the `models_eval` point-cloud models used for evaluation.
+- `python postprocessing/generate_seg.py data/videos/scene_X/video_Y` — batch-renders instance masks for all three cameras from the saved pose JSONs (output goes to `cam{0,1,2}/mask/`).
+- `python postprocessing/view_pose.py data/videos/scene_X/video_Y [--obj 1]` — quick sanity check that re-projects an annotated object's vertices into all three views.
+- `python postprocessing/calibrate_depth.py data/videos/scene_X/video_Y` — visualizes depth/RGB alignment as a fused heatmap.
+- `python postprocessing/mesh2eval.py [--in-dir data/models] [--out-dir data/models_eval] [--start 148] [--end 693]` — simplifies released meshes into the `models_eval` point-cloud models used for evaluation.
 
 ## Annotation File Format
 
@@ -277,6 +277,5 @@ Global constants live in `utils/config.py`:
 
 ## Notes
 
-- The standalone postprocessing scripts use hardcoded `root = Path('data/videos/scene_X/video_Y')` paths near the top of their `__main__` blocks — edit these to point at the scene you are processing.
 - `TFT_vs_Fund/` is a third-party MATLAB toolbox ([Julià & Monasse, *A Critical Review of the Trifocal Tensor Decomposition*](https://github.com/LauraFJulia/TFT_vs_Fund)) bundled for the extrinsic refinement step; see `TFT_vs_Fund/LICENSE.txt` for its license.
 - Please open an issue if you hit problems setting up the pipeline — we are happy to help.

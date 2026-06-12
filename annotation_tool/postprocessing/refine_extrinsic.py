@@ -101,11 +101,17 @@ def visualize_scenes():
 
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Automatic 3-camera extrinsic refinement via SuperGlue + trifocal tensor.')
+    parser.add_argument('root', nargs='+', help='video folder(s), e.g. data/videos/scene_0/video_0')
+    parser.add_argument('--stride', type=int, default=10, help='use every N-th frame for correspondences')
+    args = parser.parse_args()
+
     eng = matlab.engine.start_matlab()
     s = eng.genpath('./TFT_vs_Fund')
     eng.addpath(s, nargout=0)
 
-    for root in Path('data/videos/scene_2').glob('video_7'):
+    for root in map(Path, args.root):
         intrinsics = np.load(root / 'intrinsics.npy')
 
         torch.set_grad_enabled(False)
@@ -124,7 +130,7 @@ if __name__ == '__main__':
         matching = Matching(config).eval().cuda()
 
         Corresp = []
-        for img_id in tqdm(range(0, len(list((root / 'cam0/rgb_marker').glob('*.png'))), 10)):
+        for img_id in tqdm(range(0, len(list((root / 'cam0/rgb_marker').glob('*.png'))), args.stride)):
             pred_sp = {}
             for i in range(3):
                 bgr = cv2.imread(str(root / f'cam{i}/rgb_marker/rgb{img_id:04d}.png'))

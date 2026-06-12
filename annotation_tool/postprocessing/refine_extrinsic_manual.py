@@ -102,6 +102,11 @@ def visualize_scenes():
 
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Semi-automatic 3-camera extrinsic refinement with manual correspondence editing.')
+    parser.add_argument('root', nargs='+', help='video folder(s), e.g. data/videos/scene_0/video_0')
+    args = parser.parse_args()
+
     eng = matlab.engine.start_matlab()
     s = eng.genpath('./TFT_vs_Fund')
     eng.addpath(s, nargout=0)
@@ -122,7 +127,7 @@ if __name__ == '__main__':
     matching = Matching(config).eval().cuda()
         
 
-    for root in list(sorted(Path('data/videos/scene_0').glob('video_6'))):
+    for root in map(Path, args.root):
         intrinsics = np.load(root / 'intrinsics.npy')
         
         Corresp = []

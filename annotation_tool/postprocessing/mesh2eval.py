@@ -2,10 +2,11 @@ import os
 import pymeshlab
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
+from functools import partial
 
-def process_model(i):
-    model_in_path = f'data/models/obj_{i:06d}.ply'
-    model_out_path = f'data/models_eval/obj_{i:06d}.ply'
+def process_model(i, in_dir='data/models', out_dir='data/models_eval'):
+    model_in_path = f'{in_dir}/obj_{i:06d}.ply'
+    model_out_path = f'{out_dir}/obj_{i:06d}.ply'
     
     print(model_out_path)
     # Check if the model has already been processed
@@ -64,14 +65,21 @@ def copy_mesh(i):
     ms.save_current_mesh(model_out_path)
 
 def main():
-    # indices = [100, 142, 222, 345, 480, 500, 528, 530, 531, 545, 546, 557, 558, 559, 560, 575, 576, 577, 579, 582, 583, 588, 593, 595] + list(range(610, 693))
-    # indices = [480]
-    # indices = list(range(545, 693))  # do not simplify articulated objects
-    indices = list(range(148, 693))
+    import argparse
+    parser = argparse.ArgumentParser(description='Resample and simplify meshes into evaluation models.')
+    parser.add_argument('--in-dir', default='data/models', help='input mesh directory containing obj_XXXXXX.ply files')
+    parser.add_argument('--out-dir', default='data/models_eval', help='output directory for evaluation meshes')
+    parser.add_argument('--start', type=int, default=148, help='first object id (inclusive)')
+    parser.add_argument('--end', type=int, default=693, help='last object id (exclusive)')
+    parser.add_argument('--workers', type=int, default=cpu_count() // 2, help='number of parallel workers')
+    args = parser.parse_args()
+
+    os.makedirs(args.out_dir, exist_ok=True)
+    indices = list(range(args.start, args.end))
     
-    # Using all available CPUs, but you can adjust the number if necessary
-    with Pool(processes=cpu_count() // 2) as pool:
-        list(tqdm(pool.imap(process_model, indices), total=len(indices)))
+    worker = partial(process_model, in_dir=args.in_dir, out_dir=args.out_dir)
+    with Pool(processes=args.workers) as pool:
+        list(tqdm(pool.imap(worker, indices), total=len(indices)))
 
 if __name__ == "__main__":
     main()
