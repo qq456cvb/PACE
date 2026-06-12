@@ -171,28 +171,30 @@ Unzip all `tar.gz` files from [HuggingFace](https://huggingface.co/datasets/qq45
 ---
 
 ## Annotation Tools
-The source code for our annotation tools is organized as follows:
+We release the full annotation pipeline used to build PACE — a 3-camera RGB-D annotation system with an ArUco-marker-based capture rig. **See the [annotation tool documentation](annotation_tool/README.md) for a complete step-by-step guide**, covering hardware setup, camera calibration, capture, object model preparation, interactive pose annotation (with keyboard shortcuts and label propagation), and mask generation.
+
+The source code is organized as follows:
 
 ```
 annotation_tool/
-├─ inpainting
-├─ obj_align
-├─ obj_sym
-├─ pose_annotate
-├─ postprocessing
-├─ TFT_vs_Fund
-├─ utils
+├─ inpainting      # video capture GUI + live marker inpainting preview
+├─ obj_align       # align scanned meshes to category-canonical frames
+├─ obj_sym         # annotate object symmetries
+├─ pose_annotate   # main interactive pose annotation GUI
+├─ postprocessing  # extrinsic refinement, marker removal, mask generation
+├─ TFT_vs_Fund     # third-party MATLAB toolbox for 3-camera extrinsic refinement
+├─ utils           # camera calibration, annotation I/O, rendering helpers
 ```
 
-- `inpainting`: Inpaints markers for more realistic images.
-- `obj_align`: Aligns objects to a consistent orientation within categories.
-- `obj_sym`: Annotates object symmetry information.
-- `pose_annotate`: Main pose annotation program.
-- `postprocessing`: Post-processing steps (e.g., marker removal, extrinsics refinement/alignment).
-- `TFT_vs_Fund`: Refines 3-camera extrinsics.
-- `utils`: Miscellaneous helper functions.
+A typical annotation session follows this pipeline:
 
-*Detailed documentation is coming soon. We are working to make the annotation tools as user-friendly as possible for accurate 3D pose annotation.*
+1. **Calibrate** the 3-camera rig with the ArUco marker (`utils/calc_extrin.py`)
+2. **Capture** RGB-D videos plus background/relative-pose reference clips (`inpainting/inpaint.py`)
+3. **Refine** the camera extrinsics via trifocal-tensor optimization (`postprocessing/refine_extrinsic.py`)
+4. **Remove** the marker from the images by inpainting (`postprocessing/remove_marker.py`)
+5. **Prepare** object models: canonical alignment and symmetry annotation (`obj_align/`, `obj_sym/`)
+6. **Annotate** object poses interactively — PnP initialization, keyboard refinement, and automatic propagation across frames (`pose_annotate/mainwindow.py`)
+7. **Generate** instance masks from the annotated poses (`postprocessing/generate_seg.py`)
 
 ---
 
